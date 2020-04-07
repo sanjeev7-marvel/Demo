@@ -1,0 +1,122 @@
+<h1>Welcome to XsdClassGenerator!</h1>
+<p>XsdClassGenerator is a Custom Tool Add-In to VS.NET to generate type-safe wrapper 
+  classes for serializing to and from XML documents. It takes as input an XSD and 
+  produces the C# or VB.NET code to do the serialization using the XmlSerializer. 
+  This is really just the output of running xsd.exe /classes, but integrated 
+  directly into VS.NET.</p>
+<h1>
+  Setup</h1>
+<p>
+  To setup the XsdClassGenerator custom tool, run the setup.bat file in the redist 
+  directory. It will export the types in XsdClassGenerator.dll to COM and add the 
+  appropriate Registry entries for this custom tool.</p>
+<h1>
+  Usage</h1>
+<p>
+  To generate XmlSerializer classes using the XsdClassGenerator custom tool add-in, 
+  you need an XSD file, e.g.</p>
+<PRE><PRE>&lt;?xml version="1.0" ?&gt;
+&lt;xs:schema id="NewDataSet" targetNamespace="http://tempuri.org/unityLogistics.xsd" xmlns:mstns="http://tempuri.org/unityLogistics.xsd" xmlns="http://tempuri.org/unityLogistics.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified"&gt;
+    &lt;xs:element name="unity"&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element name="currentModule" type="xs:int" minOccurs="0" /&gt;
+                &lt;xs:element name="nextLecture" type="xs:string" minOccurs="0" /&gt;
+                &lt;xs:element name="currentActivity" type="xs:string" minOccurs="0" /&gt;
+                &lt;xs:element name="notes" minOccurs="0" maxOccurs="1"&gt;
+                    &lt;xs:complexType&gt;
+                        &lt;xs:sequence&gt;
+                            &lt;xs:element name="note" type="xs:string" minOccurs="0" maxOccurs="unbounded"/&gt;
+                        &lt;/xs:sequence&gt;
+                    &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</PRE>
+</PRE>
+<p>
+  Once you've created your XSD file, add the file to your project and set the 
+  Custom Tool property to "XsdClassGenerator" (no quotes). After you've done 
+  that, and VS.NET notices, you'll get an associated .cs or .vb file. To see it, 
+  make sure that Show All Files is selected at the top of the Solution Explorer. 
+  From then on, whenever you change the contents of your XSD file, the code will 
+  be regenerated. When you build, it will be part of your project.</p>
+<P>Once you've got the serialization types, you can now load and save XML data 
+  that conforms to the XSD using the XmlSerializer class in a type-safe, 
+  object-oriented manor, like so:</P>
+<PRE>using( FileStream fs =  new  FileStream(@"..\..\unityLogistics.xml", FileMode.Open, FileAccess.Read) ) {
+<STRONG>    XmlSerializer   serializer = new XmlSerializer(typeof(unity));
+    unity           u = (unity)serializer.Deserialize(fs);
+</STRONG>
+    Console.WriteLine("currentModule=   {0}", u.currentModule);
+    Console.WriteLine("nextLecture=     {0}", u.nextLecture);
+    Console.WriteLine("currentActivity= {0}", u.currentActivity);
+    Console.WriteLine("notes:");
+    foreach( string note in u.notes ) {
+        Console.WriteLine("\tnote: {0}", note);
+    }
+}</PRE>
+<h1>
+  What's a Custom Tool?</h1>
+<p>If you'd like to know more about what a custom tool is and how to build your 
+  own, check out <A href="http://www.sellsbrothers.com/tools/#collectiongen">CollectionGen</A>.</p>
+<h1>
+  History</h1>
+<UL>
+  <LI>
+    4/29/03:
+    <UL>
+      <LI>
+        Updated to work in VS.NET 2002 &amp; VS.NET 2003 (and will run the appropriate 
+        version of xsd.exe based on which version of VS is being used).</LI></UL>
+  <LI>
+    7/2/02:
+    <UL>
+      <LI>
+        <A href="mailto:martin_naughton@rocketmail.com">Martin Naughton</A>&nbsp;pointed 
+        out a problem w/ spaces in the path. Thanks, Martin.</LI></UL>
+  <LI>
+    6/4/02:
+    <UL>
+      <LI>
+        <A href="mailto:ebf@users.sourceforge.net">Eric Friedman</A>
+      added namespace support. Thanks, Eric!
+      <LI>
+        Eric also added uninstall, but who'd want to use that?!? : )
+      </LI>
+    </UL>
+  <LI>
+    5/17/2002: Initial release.
+  </LI>
+</UL>
+<h1>Limitations</h1>
+<UL>
+  <li>
+    Would be nice to use same BCL classes that xsd.exe uses, if they're available, 
+    instead of spawning xsd.exe to generate the code.</li></UL>
+<h1>
+  <a name="license">License</a>
+</h1>
+<p>
+  Copyright © 2002-2003 Chris Sells</p>
+<p>
+  This software is provided 'as-is', without any express or implied warranty. In 
+  no event will the authors be held liable for any damages arising from the use 
+  of this software.</p>
+<p>
+  Permission is granted to anyone to use this software for any purpose, including 
+  commercial applications, subject to the following restrictions:</p>
+<ol>
+  <li>
+    The origin of this software must not be misrepresented; you must not claim that 
+    you wrote the original software. If you use this software in a product, an 
+    acknowledgment in the product documentation is requested, as shown here:<br>
+    <br>
+    Portions copyright © 2002-2003 Chris Sells (<a href="http://www.genghisgroup.com/">http://www.sellsbrothers.com/</a>).<br>
+  &nbsp;
+  <li>
+    No substantial portion of this source code may be redistributed without the 
+    express written permission of the copyright holders, where "substantial" is 
+    defined as enough code to be recognizably from this code.</li>
+</ol>

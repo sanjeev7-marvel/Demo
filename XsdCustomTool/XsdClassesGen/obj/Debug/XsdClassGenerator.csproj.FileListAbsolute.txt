@@ -1,0 +1,10 @@
+C:\myDocuments\XsdCustomTool\XsdClassesGen\obj\Debug\XsdClassGenerator.csprojResolveAssemblyReference.cache
+C:\myDocuments\XsdCustomTool\XsdClassesGen\obj\Debug\XsdClassGenerator.dll
+C:\myDocuments\XsdCustomTool\XsdClassesGen\obj\Debug\XsdClassGenerator.pdb
+C:\myDocuments\XsdCustomTool\XsdClassGenerator.dll
+C:\myDocuments\XsdCustomTool\XsdClassGenerator.pdb
+C:\Working\XsdCustomTool\XsdClassesGen\obj\Debug\XsdClassGenerator.csprojResolveAssemblyReference.cache
+C:\Working\XsdCustomTool\XsdClassesGen\obj\Debug\XsdClassGenerator.dll
+C:\Working\XsdCustomTool\XsdClassesGen\obj\Debug\XsdClassGenerator.pdb
+C:\Working\XsdCustomTool\XsdClassGenerator.dll
+C:\Working\XsdCustomTool\XsdClassGenerator.pdb
